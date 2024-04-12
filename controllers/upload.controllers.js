@@ -77,7 +77,7 @@ exports.uploadFile = async (req, res) => {
         else return res.status(400).json({ error: true, msg: err.message });
       }
 
-      const { categorySlug } = req.body;
+      const { categorySlug, folderSlug } = req.body;
       const { originalname, mimetype, size } = req.file;
       const save_name = `${slug}.${mime.extension(mimetype)}`;
       // ตำแหน่งเดิมของไฟล์
@@ -112,9 +112,21 @@ exports.uploadFile = async (req, res) => {
       };
 
       if (categorySlug) {
-        const cat = await CategoryModel.findOne({ slug: categorySlug }).select(`_id`);
+        const cat = await CategoryModel.findOne({ slug: categorySlug }).select(
+          `_id`
+        );
         if (cat?._id) {
           dataSave.categoryId = cat?._id;
+        }
+      }
+      if (folderSlug) {
+        const fol = await FileModel.findOne({
+          slug: folderSlug,
+          mimeType: "dir",
+        }).select(`_id`);
+
+        if (fol?._id) {
+          dataSave.folderId = fol?._id;
         }
       }
 

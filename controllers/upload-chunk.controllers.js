@@ -20,7 +20,7 @@ exports.uploadChunk = async (req, res) => {
   try {
     const { userId } = get(req, "user");
     const { file_name, item } = req.params;
-    const { total, mime_type, categorySlug } = req.body;
+    const { total, mime_type, categorySlug, folderSlug } = req.body;
     const tmpPath = path.join(global.dirPublic, "tmp", md5(file_name));
     const uploadPath = path.join(global.dirPublic, "upload");
     fs.mkdirSync(uploadPath, { recursive: true });
@@ -67,9 +67,22 @@ exports.uploadChunk = async (req, res) => {
     };
 
     if (categorySlug) {
-      const cat = await CategoryModel.findOne({ slug: categorySlug }).select(`_id`);
+      const cat = await CategoryModel.findOne({ slug: categorySlug }).select(
+        `_id`
+      );
       if (cat?._id) {
         dataSave.categoryId = cat?._id;
+      }
+    }
+    if (folderSlug) {
+
+      const fol = await FileModel.findOne({
+        slug: folderSlug,
+        mimeType: "dir",
+      }).select(`_id`);
+
+      if (fol?._id) {
+        dataSave.folderId = fol?._id;
       }
     }
 
