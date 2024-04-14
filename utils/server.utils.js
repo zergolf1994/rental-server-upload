@@ -15,7 +15,7 @@ exports.getStorageServer = async () => {
     const servers = await ServerModel.aggregate([
       {
         $match: {
-          active: true,
+          enable: true,
           type: "storage",
           "ssh_option.username": { $ne: undefined },
           "ssh_option.password": { $ne: undefined },
