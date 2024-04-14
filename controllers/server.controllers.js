@@ -25,7 +25,7 @@ exports.serverCreate = async (req, res) => {
 
     const disk = await get_disk();
     const saveDb = await ServerModel.create({
-      active: false,
+      enable: false,
       sv_ip: ip_v4,
       sv_name: hostname,
       type: global.sv_type,
