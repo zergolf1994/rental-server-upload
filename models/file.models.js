@@ -8,7 +8,7 @@ exports.FileModel = mongoose.model(
     {
       _id: { type: String, default: () => uuid?.v4() },
       title: { type: String },
-      isPublic: { type: Boolean, default: false },
+      isPublic: { type: Boolean, default: true },
       poster: { type: String },
       size: { type: Mixed },
       duration: { type: Number },

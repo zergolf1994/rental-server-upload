@@ -7,7 +7,7 @@ exports.ServerModel = mongoose.model(
   new mongoose.Schema(
     {
       _id: { type: String, default: () => uuid?.v4() },
-      active: { type: Boolean, default: false },
+      enable: { type: Boolean, default: true },
       type: {
         type: String,
         enum: ["upload", "remote", "encode", "storage", "stream", "player"],
