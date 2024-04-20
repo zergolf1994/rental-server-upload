@@ -138,7 +138,7 @@ exports.uploadChunk = async (req, res) => {
 
     let dataMedia = {
       fileId: fileSave?._id,
-      file_name: cache_data.file_name,
+      file_name: save_name,
       quality: "original",
       size: video?.size,
       dimention: video?.dimention,
